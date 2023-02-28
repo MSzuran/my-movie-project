@@ -15,6 +15,7 @@ function CaruselTrending({
         handleSwitchTitleTrendingChange={handleSwitchTitleTrendingChange}
       />
       <CaruselTrendingBody
+        switchTrendingTitle={switchTrendingTitle}
         dataTrending={dataTrending}
       />
     </Box>

@@ -1,11 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage/HomePage';
 import SearchPage from '../pages/SearchPage/SearchPage';
-import MoviesPage from '../pages/MoviesPage/MoviesPage';
 import MoviePage from '../pages/MoviePage/MoviePage';
-import PersonPage from '../pages/PersonPage/PersonPage';
 import ReviewsPage from '../pages/ReviewsPage/ReviewsPage';
-import TvPage from '../pages/TvPage/TvPage';
 import FavoritesPage from '../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
@@ -14,12 +11,9 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" exact element={<HomePage />} />
       <Route path="/search" element={<SearchPage />} />
-      <Route path="/movies" element={<MoviesPage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/movie/:movieId" element={<MoviePage />} />
       <Route path="/movie/:movieId/reviews" element={<ReviewsPage />} />
-      <Route path="/person/:personId" element={<PersonPage />} />
-      <Route path="/tv/:tvId" element={<TvPage />} />
       <Route path="/error" element={<ErrorPage />} />
     </Routes>
   );

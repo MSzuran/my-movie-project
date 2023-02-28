@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import CardBasic from '../CardBasic/CardBasic';
 import CaruselLoader from '../CaruselLoader/CaruselLoader';
 
-function CaruselTrendingBody({ dataTrending }) {
+function CaruselTrendingBody({ switchTrendingTitle, dataTrending }) {
   const caruselLoading = useSelector((state) => state.popularData.isLoading);
   return (
     <Box className="caruselBody">
@@ -24,6 +24,7 @@ function CaruselTrendingBody({ dataTrending }) {
             title={title}
             releaseDate={releaseDate}
             voteAverage={voteAverage}
+            switchTrendingTitle={switchTrendingTitle}
           />
         ))}
     </Box>
@@ -31,6 +32,7 @@ function CaruselTrendingBody({ dataTrending }) {
 }
 
 CaruselTrendingBody.propTypes = {
+  switchTrendingTitle: PropTypes.string,
   dataTrending: PropTypes.arrayOf(
     PropTypes.shape({
       poster_path: PropTypes.string.isRequired,
@@ -42,6 +44,7 @@ CaruselTrendingBody.propTypes = {
 };
 
 CaruselTrendingBody.defaultProps = {
+  switchTrendingTitle: '',
   dataTrending: [{
     title: '',
     release_date: '',

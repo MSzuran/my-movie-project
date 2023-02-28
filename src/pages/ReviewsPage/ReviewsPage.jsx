@@ -3,13 +3,11 @@ import { useState } from 'react';
 import moment from 'moment';
 import { Box, Button, Input } from '@mui/material';
 import {
-  useFetchDataReviewsDetails,
   useFetchDataDetails,
   useFetchServerReviews,
   usePostNewReview,
 } from '../../reactQuery/hooks/index';
 import { MOVIES } from '../../constants/searchTypes';
-import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import ServerReviewCard from '../../components/ServerReviewCard/ServerReviewCard';
 import SectionLoader from '../../components/SectionLoader/SectionLoader';
 import HeaderLoader from '../../components/HeaderLoader/HeaderLoader';
@@ -27,40 +25,6 @@ export default function ReviewsPage() {
   const [newAuthor, setNewAuthor] = useState('');
   const [reviewDescription, setReviewDescription] = useState('');
   const [isInputVisible, setIsInputVisible] = useState(true);
-
-  const {
-    reviewsData,
-    isLoadingReviews,
-  } = useFetchDataReviewsDetails(MOVIES, movieId);
-
-  const reviews = reviewsData.results;
-
-  const getReviewData = (review) => {
-    const {
-      author,
-      author_details: authorDetails,
-      content,
-      created_at: createdAt,
-    } = review;
-    return {
-      author,
-      authorDetails,
-      content,
-      createdAt,
-    };
-  };
-
-  const reviewsCardGenerator = () => (
-    reviews.map((review) => {
-      const reviewDetails = getReviewData(review);
-      return (
-        <ReviewCard
-          key={review.id}
-          reviewDetails={reviewDetails}
-        />
-      );
-    })
-  );
 
   const {
     serverReviews,
@@ -84,11 +48,11 @@ export default function ReviewsPage() {
 
   const serverReviewsCardGenerator = () => (
     serverReviews.map((serverReview) => {
-      const serverReviewDetail = getServerReviewData(serverReview);
+      const reviewDetails = getServerReviewData(serverReview);
       return (
         <ServerReviewCard
-          key={serverReviewDetail.id}
-          serverReviewDetail={serverReviewDetail}
+          key={reviewDetails.id}
+          reviewDetails={reviewDetails}
         />
       );
     })
@@ -145,7 +109,7 @@ export default function ReviewsPage() {
                 {title}
                 {` (${moment(releaseDate).format('YYYY')})`}
               </Box>
-              <Button onClick={() => navigate(-1)} className="reviewHeaderButton style">⇦ Back to main</Button>
+              <Button onClick={() => navigate(-1)} className="reviewHeaderButton style">⇦ Back to movie</Button>
             </Box>
           </Box>
         )
@@ -177,9 +141,6 @@ export default function ReviewsPage() {
           <Box className="cardReviewsColumns">
             {!isLoadingServerReviews
               ? (serverReviewsCardGenerator())
-              : (<SectionLoader />)}
-            {!isLoadingReviews
-              ? (reviewsCardGenerator())
               : (<SectionLoader />)}
           </Box>
         </Box>

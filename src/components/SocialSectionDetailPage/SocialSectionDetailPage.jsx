@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import ReviewCard from '../ReviewCard/ReviewCard';
+import ServerReviewCard from '../ServerReviewCard/ServerReviewCard';
 import './SocialSectionDetailPage.css';
 
 function SocialSectionDetailPage({ reviewDetails }) {
@@ -13,7 +13,7 @@ function SocialSectionDetailPage({ reviewDetails }) {
           <Link to="reviews" className="socialSectionMenuTab style">{`Reviews (${reviewDetails.numberOfReviews})`}</Link>
         </Box>
       </Box>
-      <ReviewCard reviewDetails={reviewDetails} />
+      <ServerReviewCard reviewDetails={reviewDetails} />
       <Link to="reviews" className="redirectionSocialFooter style">Read All Reviews</Link>
     </>
   );
@@ -22,11 +22,6 @@ function SocialSectionDetailPage({ reviewDetails }) {
 SocialSectionDetailPage.propTypes = {
   reviewDetails:
     PropTypes.shape({
-      authorDetails:
-        PropTypes.shape({
-          rating: PropTypes.number,
-          avatar_path: PropTypes.string,
-        }),
       author: PropTypes.string,
       content: PropTypes.string,
       createdAt: PropTypes.string,
@@ -36,10 +31,6 @@ SocialSectionDetailPage.propTypes = {
 
 SocialSectionDetailPage.defaultProps = {
   reviewDetails: {
-    authorDetails: {
-      rating: 0,
-      avatar_path: '',
-    },
     author: '',
     content: '',
     createdAt: '',

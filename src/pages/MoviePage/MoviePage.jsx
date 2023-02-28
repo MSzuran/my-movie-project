@@ -1,11 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import {
   useFetchDataDetails,
   useFetchDataCreditsDetails,
-  useFetchDataReviewsDetails,
   useFetchDataKeywordsDetails,
+  useFetchServerReviews,
 } from '../../reactQuery/hooks/index';
 import {
   useGetMovieDataById,
@@ -35,9 +35,9 @@ export default function MoviePage() {
   } = useFetchDataCreditsDetails(MOVIES, movieId);
 
   const {
-    reviewsData,
-    isLoadingReviews,
-  } = useFetchDataReviewsDetails(MOVIES, movieId);
+    serverReviews,
+    isLoadingServerReviews,
+  } = useFetchServerReviews(movieId);
 
   const { keywordsData, isLoadingKeywords } = useFetchDataKeywordsDetails(MOVIES, movieId);
 
@@ -47,7 +47,7 @@ export default function MoviePage() {
   const { addToFavorites } = useAddTofavorites();
 
   useEffect(() => {
-    if (serverMovieData.liked) {
+    if (serverMovieData) {
       setIsLiked(serverMovieData.liked);
       setIsFavorite(serverMovieData.favorite);
     }
@@ -82,27 +82,25 @@ export default function MoviePage() {
     return mainCast;
   };
 
-  const getMainReviewData = () => {
-    const firstReview = reviewsData.results[0];
-    const numberOfReviews = reviewsData.results.length;
+  const getServerReviewData = () => {
+    const firstReview = serverReviews[0];
+    const numberOfReviews = serverReviews?.length;
     const {
       author,
-      author_details: authorDetails,
-      content,
-      created_at: createdAt,
+      createdAt,
+      reviewDescription: content,
     } = firstReview;
     return {
       author,
-      authorDetails,
       content,
       createdAt,
       numberOfReviews,
     };
   };
 
-  const checkIfReviewsExists = () => {
-    if (reviewsData.results.length) {
-      return <SocialSectionDetailPage reviewDetails={getMainReviewData()} />;
+  const checkIfServerReviewsExists = () => {
+    if (serverReviews.length) {
+      return <SocialSectionDetailPage reviewDetails={getServerReviewData()} />;
     }
     return (
       <Box className="addFirstReviewContainer">
@@ -175,9 +173,9 @@ export default function MoviePage() {
               )}
           </Box>
           <Box className="detailSocialContainer">
-            {!isLoadingReviews
+            {!isLoadingServerReviews
               ? (
-                checkIfReviewsExists()
+                checkIfServerReviewsExists()
               )
               : (
                 <SectionLoader />

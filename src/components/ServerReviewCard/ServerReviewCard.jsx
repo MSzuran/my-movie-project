@@ -3,8 +3,8 @@ import moment from 'moment';
 import { Box, Typography, Avatar } from '@mui/material';
 import './ServerReviewCard.css';
 
-function ServerReviewCard({ serverReviewDetail }) {
-  const { author, createdAt, content } = serverReviewDetail;
+function ServerReviewCard({ reviewDetails }) {
+  const { author, createdAt, content } = reviewDetails;
 
   return (
     <Box className="reviewContainer">
@@ -27,7 +27,7 @@ function ServerReviewCard({ serverReviewDetail }) {
 }
 
 ServerReviewCard.propTypes = {
-  serverReviewDetail:
+  reviewDetails:
     PropTypes.shape({
       author: PropTypes.string,
       content: PropTypes.string,
@@ -36,7 +36,7 @@ ServerReviewCard.propTypes = {
 };
 
 ServerReviewCard.defaultProps = {
-  serverReviewDetail: {
+  reviewDetails: {
     author: '',
     content: '',
     createdAt: '',

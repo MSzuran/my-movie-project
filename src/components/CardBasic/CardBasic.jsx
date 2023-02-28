@@ -14,11 +14,12 @@ function CardBasic({
   releaseDate,
   voteAverage,
   switchTitle,
+  switchTrendingTitle,
 }) {
   const navigate = useNavigate();
 
   const handleOnClickBasicCard = () => {
-    if (switchTitle === 'Movies') {
+    if (switchTitle === 'Movies' || switchTrendingTitle) {
       navigate(`/${MOVIES}/${id}`);
     }
   };
@@ -92,6 +93,7 @@ CardBasic.propTypes = {
   releaseDate: PropTypes.string,
   voteAverage: PropTypes.number,
   switchTitle: PropTypes.string,
+  switchTrendingTitle: PropTypes.string,
 };
 
 CardBasic.defaultProps = {
@@ -101,6 +103,7 @@ CardBasic.defaultProps = {
   releaseDate: '',
   voteAverage: 0,
   switchTitle: '',
+  switchTrendingTitle: '',
 };
 
 export default CardBasic;
